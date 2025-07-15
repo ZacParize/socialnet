@@ -1,0 +1,15 @@
+micronaut:
+  application:
+    name: socialnet
+  server:
+    port: 8088
+datasources:
+  default:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: changeme
+    driver-class-name: org.postgresql.Driver
+jooq:
+  datasources:
+    default:
+      sql-dialect: 'POSTGRES'
