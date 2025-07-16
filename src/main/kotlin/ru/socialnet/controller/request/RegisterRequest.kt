@@ -1,8 +1,10 @@
 package ru.socialnet.controller.request
 
+import io.micronaut.serde.annotation.Serdeable
 import ru.socialnet.model.User
 import java.time.LocalDate
 
+@Serdeable
 data class RegisterRequest(
     val id: Int? = null,
     val firstName: String,

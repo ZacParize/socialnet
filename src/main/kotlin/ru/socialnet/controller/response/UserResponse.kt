@@ -1,7 +1,9 @@
 package ru.socialnet.controller.response
 
+import io.micronaut.serde.annotation.Serdeable
 import ru.socialnet.model.User
 
+@Serdeable
 data class UserResponse(
     val id: String,
     val firstName: String,
