@@ -5,6 +5,9 @@ micronaut:
     port: 8088
   security:
     enabled: true
+    endpoints:
+      login:
+        enabled: false
     authentication: bearer
     token:
       jwt:
@@ -12,7 +15,7 @@ micronaut:
         signatures:
           secret:
             generator:
-              secret: "${JWT_GENERATOR_SIGNATURE_SECRET:pleaseChangeThisSecret}"
+              secret: "${JWT_GENERATOR_SIGNATURE_SECRET:pleaseChangeThisSecretAndRememberItShouldBeAtLeast32Characters}"
 
 datasources:
   default:
@@ -25,3 +28,8 @@ jooq:
   datasources:
     default:
       sql-dialect: 'POSTGRES'
+
+flyway:
+  datasources:
+    default:
+      enabled: true

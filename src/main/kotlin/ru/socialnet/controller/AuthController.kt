@@ -37,6 +37,7 @@ class AuthController (private val userService: UserService,
     @Post("/login")
     @Produces(MediaType.APPLICATION_JSON)
     fun login(@Body request: LoginRequest): HttpResponse<Any> {
+        log.info(request.toString())
         val id = request.id ?: return HttpResponse.badRequest(mapOf("error" to "id required"))
         val password = request.password ?: return HttpResponse.badRequest(mapOf("error" to "password required"))
         val user = userService.login(id, password) ?: return HttpResponse.unauthorized()

@@ -5,6 +5,7 @@ plugins {
     id("io.micronaut.application") version "4.5.4"
     id("com.gradleup.shadow") version "8.3.7"
     id("io.micronaut.aot") version "4.5.4"
+    id("org.flywaydb.flyway") version "11.1.0"
     id("nu.studer.jooq") version "8.2"
 }
 
@@ -33,6 +34,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("org.jooq:jooq:3.19.7")
+    implementation("org.flywaydb:flyway-core:11.1.0")
     implementation("org.postgresql:postgresql:42.7.7")
     implementation("org.springframework.security:spring-security-crypto:6.2.4")
     implementation("commons-logging:commons-logging:1.2")
@@ -121,4 +123,11 @@ tasks.test {
 
 java {
     sourceCompatibility = JavaVersion.toVersion("21")
+}
+
+flyway {
+    driver = "org.postgresql.Driver"
+    url = "jdbc:postgresql://localhost:5432/postgres"
+    user = "postgres"
+    password = "changeme"
 }

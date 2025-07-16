@@ -32,7 +32,7 @@ class UserRepository(private val dsl: DSLContext) {
                 user.gender,
                 user.interests,
                 user.city,
-                user.password
+                encoder.encode(user.password)
             )
             .returning(field("id"))
             .fetchOne()

@@ -13,7 +13,7 @@ data class RegisterRequest(
     val gender: String,
     val interests: String,
     val city: String,
-    val password: String // для простоты, в реальности хранить хэш!
+    val password: String
 ) {
     fun mapToEntity(): User {
         return User(
