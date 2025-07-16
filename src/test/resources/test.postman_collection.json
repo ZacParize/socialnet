@@ -1,0 +1,67 @@
+{
+	"info": {
+		"_postman_id": "1bca73f0-300b-4a55-b2f1-25f8674af06e",
+		"name": "localhost:8088",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "46815901"
+	},
+	"item": [
+		{
+			"name": "/login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"id\": \"3\", \n\"password\": \"qwerty\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8088/login"
+			},
+			"response": []
+		},
+		{
+			"name": "/user/register",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"id\": 0, \n\"firstName\":\"firstNameZeroTest\", \n\"lastName\":\"lastNameZeroTest\", \n\"birthDate\": \"1970-01-01\", \n\"gender\": \"m\", \n\"interests\": \"chess\", \n\"city\": \"Moscow\", \n\"password\": \"qwerty\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8088/user/register"
+			},
+			"response": []
+		},
+		{
+			"name": "/test",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8088/test"
+			},
+			"response": []
+		}
+	]
+}
