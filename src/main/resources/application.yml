@@ -8,6 +8,12 @@ micronaut:
     endpoints:
       login:
         enabled: false
+      logout:
+        enabled: false
+      oauth:
+        enabled: false
+      keys:
+        enabled: false
     authentication: bearer
     token:
       jwt:

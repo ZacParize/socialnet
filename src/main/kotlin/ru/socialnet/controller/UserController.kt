@@ -7,13 +7,14 @@ import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.PathVariable
 import io.micronaut.http.annotation.Produces
 import io.micronaut.security.annotation.Secured
+import io.micronaut.security.rules.SecurityRule
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import ru.socialnet.controller.response.UserResponse
 import ru.socialnet.service.UserService
 
 @Controller
-@Secured("USER")
+@Secured(SecurityRule.IS_AUTHENTICATED, "USER")
 class UserController(private val userService: UserService) {
     private val log: Logger = LoggerFactory.getLogger(UserController::class.java)
 

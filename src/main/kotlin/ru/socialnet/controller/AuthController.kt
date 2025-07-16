@@ -41,7 +41,9 @@ class AuthController (private val userService: UserService,
         val id = request.id ?: return HttpResponse.badRequest(mapOf("error" to "id required"))
         val password = request.password ?: return HttpResponse.badRequest(mapOf("error" to "password required"))
         val user = userService.login(id, password) ?: return HttpResponse.unauthorized()
-        val token = jwtTokenGenerator.generateToken(mapOf("id" to user.id.toString(), "role" to listOf("USER")))
+        val token = jwtTokenGenerator.generateToken(mapOf("sub" to user.id.toString(),
+            "roles" to listOf(SecurityRule.IS_AUTHENTICATED, "USER"),
+            "attributes" to emptyMap<String, Any>()))
             .orElse(null) ?: return HttpResponse.serverError()
         return HttpResponse.ok(LoginResponse(token))
     }
