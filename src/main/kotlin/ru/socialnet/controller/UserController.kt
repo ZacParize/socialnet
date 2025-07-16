@@ -20,6 +20,7 @@ class UserController(private val userService: UserService) {
     @Get(value = "/user/get/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     fun getUser(@PathVariable id: String): HttpResponse<UserResponse> {
+        log.info("Received request user by id: {}", id)
         val safeId = id.toIntOrNull() ?: return HttpResponse.notFound()
         val user = UserResponse.from(userService.getUser(safeId))
         log.info("Found user by id: {}", user)

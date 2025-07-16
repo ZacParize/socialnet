@@ -2,11 +2,9 @@ package ru.socialnet.controller
 
 import io.micronaut.http.HttpResponse
 import io.micronaut.http.MediaType
-import io.micronaut.http.annotation.Body
-import io.micronaut.http.annotation.Controller
-import io.micronaut.http.annotation.Post
-import io.micronaut.http.annotation.Produces
-import io.micronaut.security.authentication.AuthenticationResponse
+import io.micronaut.http.annotation.*
+import io.micronaut.security.annotation.Secured
+import io.micronaut.security.rules.SecurityRule
 import io.micronaut.security.token.jwt.generator.JwtTokenGenerator
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -17,9 +15,16 @@ import ru.socialnet.controller.response.RegisterResponse
 import ru.socialnet.service.UserService
 
 @Controller
+@Secured(SecurityRule.IS_ANONYMOUS)
 class AuthController (private val userService: UserService,
     private val jwtTokenGenerator: JwtTokenGenerator) {
     private val log: Logger = LoggerFactory.getLogger(AuthController::class.java)
+
+    @Get("/test")
+    @Produces(MediaType.APPLICATION_JSON)
+    fun test(): HttpResponse<Any> {
+        return HttpResponse.ok(mapOf("response" to "Hello, world!"))
+    }
 
     @Post("/user/register")
     @Produces(MediaType.APPLICATION_JSON)
