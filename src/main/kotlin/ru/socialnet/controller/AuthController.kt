@@ -23,7 +23,7 @@ class AuthController (private val userService: UserService,
     @Get("/test")
     @Produces(MediaType.APPLICATION_JSON)
     fun test(): HttpResponse<Any> {
-        return HttpResponse.ok(mapOf("response" to "Hello, world!"))
+        return HttpResponse.ok(mapOf("response" to "i am alive"))
     }
 
     @Post("/user/register")
