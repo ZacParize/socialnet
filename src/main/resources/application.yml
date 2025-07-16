@@ -3,12 +3,24 @@ micronaut:
     name: socialnet
   server:
     port: 8088
+  security:
+    enabled: true
+    authentication: bearer
+    token:
+      jwt:
+        enabled: true
+        signatures:
+          secret:
+            generator:
+              secret: "${JWT_GENERATOR_SIGNATURE_SECRET:pleaseChangeThisSecret}"
+
 datasources:
   default:
     url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
     password: changeme
     driver-class-name: org.postgresql.Driver
+
 jooq:
   datasources:
     default:

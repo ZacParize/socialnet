@@ -5,11 +5,15 @@ import org.jooq.DSLContext
 import org.jooq.Record
 import org.jooq.impl.DSL.field
 import org.jooq.impl.DSL.table
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import ru.socialnet.model.User
 import java.time.LocalDate
 
 @Singleton
 class UserRepository(private val dsl: DSLContext) {
+
+    private val encoder = BCryptPasswordEncoder()
+
     fun create(user: User): Int? {
         return dsl.insertInto(table("users"))
             .columns(
@@ -43,13 +47,21 @@ class UserRepository(private val dsl: DSLContext) {
         return rec.toUser()
     }
 
-    fun findByLoginAndPassword(login: String, password: String): User? {
-        val rec = dsl.select()
+    fun findByLogin(login: String): List<User> {
+        return dsl.select()
             .from(table("users"))
             .where(field("first_name").eq(login))
-            .and(field("password").eq(password))
-            .fetchOne() ?: return null
-        return rec.toUser()
+            .fetch()
+            .map { it.toUser() }
+    }
+
+    fun findByLoginAndPassword(login: String, password: String): User? {
+        return findByLogin(login).find { encoder.matches(password, it.password) }
+    }
+
+    fun findByIdAndPassword(id: Int, password: String): User? {
+        val user = findById(id)
+        return if (user != null && encoder.matches(password, user.password)) user else null;
     }
 
     private fun Record.toUser(): User = User(
