@@ -27,4 +27,13 @@ class UserController(private val userService: UserService) {
         log.info("Found user by id: {}", user)
         return if (user != null) HttpResponse.ok(user) else HttpResponse.notFound()
     }
+
+    @Get(value = "/user/search/{firstName}/{secondName}")
+    @Produces(MediaType.APPLICATION_JSON)
+    fun search(@PathVariable firstName: String, @PathVariable secondName: String): HttpResponse<List<UserResponse?>> {
+        log.info("Received request search by firstName: {}, secondName: {}", firstName, secondName)
+        val users = userService.search(firstName, secondName).map { UserResponse.from(it) }
+        log.info("Found users by by firstName: {}, secondName: {}, {}", firstName, secondName, users)
+        return HttpResponse.ok(users)
+    }
 }

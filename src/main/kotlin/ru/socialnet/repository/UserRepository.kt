@@ -59,6 +59,15 @@ class UserRepository(private val dsl: DSLContext) {
         return findByLogin(login).find { encoder.matches(password, it.password) }
     }
 
+    fun search(firstName: String, secondName: String): List<User> {
+        return dsl.select()
+            .from(table("users"))
+            .where(field("first_name").like("$firstName%"))
+            .and(field("last_name").like("$secondName%"))
+            .fetch()
+            .map { it.toUser() }
+    }
+
     fun findByIdAndPassword(id: Int, password: String): User? {
         val user = findById(id)
         return if (user != null && encoder.matches(password, user.password)) user else null;
